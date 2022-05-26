@@ -1,7 +1,8 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-def SendEmail(mail_content, sender_address,sender_pass, receiver_address, mail_subject):
+from email.mime.image import MIMEImage
+def SendEmail(mail_content, sender_address,sender_pass, receiver_address, mail_subject,type):
 
     #Setup the MIME
     message = MIMEMultipart()
@@ -9,8 +10,13 @@ def SendEmail(mail_content, sender_address,sender_pass, receiver_address, mail_s
     message['To'] = receiver_address
     message['Subject'] = mail_subject 
     #The body and the attachments for the mail
-    message.attach(MIMEText(mail_content, 'plain'))
-    #Create SMTP session for sending the mail
+    if(type == "text"):
+        message.attach(MIMEText(mail_content, 'plain'))
+    elif type == "image":
+        #image_section
+        image_open = open(mail_content,'rb').read( )
+        image_ready = MIMEImage(image_open,'jpg',name = 'Picture')
+        message.attach(image_ready)
     session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
     session.starttls() #enable security
     session.login(sender_address, sender_pass) #login with mail_id and password
