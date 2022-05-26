@@ -26,6 +26,7 @@ def main():
         #     print("Không có thư nào chưa đọc")
         # break
         Handling("demo send picture")
+        break
 
 #======================================================
 
