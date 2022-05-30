@@ -8,7 +8,10 @@ def SendEmail(mail_content, sender_address,sender_pass, receiver_address, mail_s
     message = MIMEMultipart()
     message['From'] = sender_address
     message['To'] = receiver_address
-    message['Subject'] = mail_subject 
+    if isinstance(mail_subject, list):
+        subject = ' - '.join(mail_subject)
+        message['Subject'] = subject 
+    else: message['Subject'] = mail_subject 
     #The body and the attachments for the mail
     if(type == "text"):
         message.attach(MIMEText(mail_content, 'plain'))

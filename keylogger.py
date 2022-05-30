@@ -28,4 +28,3 @@ def EndLogging(listener):
     f.truncate(0)
     f.close()
     return res
-    

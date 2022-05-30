@@ -25,7 +25,16 @@ def ReceiveEmail(email_address,password):
             print("BCC: ", message.get('BCC'))
             print("Date: ", message.get('Date'))
             print("Subject: ", message.get('Subject'))
-            list.append(message.get('Subject'))
+            temp = (message.get('Subject').replace('\r\n', '')).split(' - ')
+            if(temp[0]=='REGISTRY'):
+                for i in temp:
+                    print(i)
+                miss_count = 6 - len(temp)
+                for i in range(0,miss_count):
+                    temp.append("")
+                list.append(temp)
+            else:
+                list.append(message.get('Subject'))
             print("content: ")
 
             for part in message.walk():
