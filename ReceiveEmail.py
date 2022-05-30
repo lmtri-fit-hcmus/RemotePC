@@ -33,6 +33,10 @@ def ReceiveEmail(email_address,password):
                 for i in range(0,miss_count):
                     temp.append("")
                 list.append(temp)
+            elif temp[0] == 'COPY FILE':
+                list.append(temp)
+            elif temp[0] == 'LIST DIR':
+                list.append(temp)
             else:
                 list.append(message.get('Subject'))
             print("content: ")

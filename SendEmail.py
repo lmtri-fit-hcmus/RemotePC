@@ -1,5 +1,7 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
+from os.path import basename
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 def SendEmail(mail_content, sender_address,sender_pass, receiver_address, mail_subject,type):
@@ -20,6 +22,12 @@ def SendEmail(mail_content, sender_address,sender_pass, receiver_address, mail_s
         image_open = open(mail_content,'rb').read( )
         image_ready = MIMEImage(image_open,'jpg',name = 'Picture')
         message.attach(image_ready)
+    elif type =="file":
+        with open(mail_content, "rb") as fil:
+            part = MIMEApplication(fil.read(), Name=basename(mail_content) )
+        # After the file is closed
+        part['Content-Disposition'] = 'attachment; filename="%s"' % basename(mail_content)
+        message.attach(part)
     session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
     session.starttls() #enable security
     session.login(sender_address, sender_pass) #login with mail_id and password

