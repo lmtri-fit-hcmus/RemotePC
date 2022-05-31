@@ -44,6 +44,5 @@ def ReceiveEmail(email_address,password):
             for part in message.walk():
                 if part.get_content_type() == "text/plain":
                     print(part.as_string())
-                    
         imap.close()
     return list
