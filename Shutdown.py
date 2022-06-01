@@ -2,7 +2,7 @@ import os
  
 def Shutdown(): 
     os.system("shutdown /s /t 1")
-    return "Shutdown successfully"
+    return ""
     # shutdown = input("Do you wish to shutdown your computer ? (yes / no): ")
   
     # if shutdown == 'no':
