@@ -2,7 +2,7 @@ import os
 
 def Restart():      
     os.system("shutdown /r /t 1")
-    return "Restart successfully"
+    return ""
 
 # restart = input("Do you wish to restart your computer ? (yes / no): ")
 # if restart == 'no':
