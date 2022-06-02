@@ -10,7 +10,9 @@ import ListDir
 
 client_address = "client1.computernetwork@gmail.com"
 
+
 client_pass="computernetwork" #unsecure
+
 
 # guess_address = "lmtri.fit.hcmus@gmail.com"
 guess_address = "letrong2307@gmail.com"
@@ -41,16 +43,21 @@ def Handling(subject):
         SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
     
       
+# list_sub = []
+# detail_list = []
+# list_sub, detail_list = ReceiveEmail.ReceiveEmail(client_address,client_pass)
 
-def main():
-    while True:
+def run(list_sub, detail_litst):
+    # while True:
         # Nhận danh sách title của các thư "CHƯA ĐỌC"
-        list = ReceiveEmail.ReceiveEmail(client_address,client_pass)
-        if len(list):
-            for i in list:
-                #Xử lý các title tương ứng
-                Handling(i)
-        sleep(5)
+    # global list_sub
+    # global detail_list
+    # list_sub, detail_list = ReceiveEmail.ReceiveEmail(client_address,client_pass)
+    if len(list_sub):
+        for i in list_sub:
+            #Xử lý các title tương ứng
+            Handling(i)
+    # sleep(5)
         # else:
         #     print("Không có thư nào chưa đọc")
         # break
@@ -60,4 +67,5 @@ def main():
 
 #======================================================
 
-main()
+if __name__ == "__main__":
+    run()

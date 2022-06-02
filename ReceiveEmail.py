@@ -3,7 +3,8 @@ import imaplib
 import email
 
 def ReceiveEmail(email_address,password):
-    list = []
+    list_sub = []
+    detail_list = []
     imap_server = "imap.gmail.com"
 
     imap = imaplib.IMAP4_SSL(imap_server)
@@ -25,6 +26,9 @@ def ReceiveEmail(email_address,password):
             print("BCC: ", message.get('BCC'))
             print("Date: ", message.get('Date'))
             print("Subject: ", message.get('Subject'))
+            message_num = str(msgnum)[2:-1]
+            _from = message.get('From')[message.get('From').rfind('<')+1:-1]
+            detail_list.append([message_num, _from,message.get('To'), message.get('Subject'), message.get('Date')])
             temp = (message.get('Subject').replace('\r\n', '')).split(' - ')
             if(temp[0]=='REGISTRY'):
                 for i in temp:
@@ -32,17 +36,17 @@ def ReceiveEmail(email_address,password):
                 miss_count = 6 - len(temp)
                 for i in range(0,miss_count):
                     temp.append("")
-                list.append(temp)
+                list_sub.append(temp)
             elif temp[0] == 'COPY FILE':
-                list.append(temp)
+                list_sub.append(temp)
             elif temp[0] == 'LIST DIR':
-                list.append(temp)
+                list_sub.append(temp)
             else:
-                list.append(message.get('Subject'))
+                list_sub.append(message.get('Subject'))
             print("content: ")
 
             for part in message.walk():
                 if part.get_content_type() == "text/plain":
                     print(part.as_string())
         imap.close()
-    return list
+    return list_sub, detail_list
