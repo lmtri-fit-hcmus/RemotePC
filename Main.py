@@ -7,6 +7,10 @@ from time import time, sleep
 import WebcamCapture
 import Registry
 import ListDir
+import Restart
+import Shutdown
+import ScreenCapture
+import KillProcess
 
 client_address = "client1.computernetwork@gmail.com"
 
@@ -41,12 +45,21 @@ def Handling(subject):
     elif subject[0] =="REGISTRY":
         content =  Registry.Registry(subject[1], subject[2], subject[3], subject[4], subject[5])
         SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
-    
-      
-# list_sub = []
-# detail_list = []
-# list_sub, detail_list = ReceiveEmail.ReceiveEmail(client_address,client_pass)
-
+    elif subject == "Screen Capture":
+        content = ScreenCapture.ScreenCapture()
+        SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'image')
+    elif subject == 'Shutdown':
+        content = Shutdown.Shutdown()
+        SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
+    elif subject == 'Restart':
+        content = Restart.Restart()
+        SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
+    elif subject[:12] == 'Kill Process':
+        content = KillProcess.KillProcess(subject[13:])
+        SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
+    else:
+        print("Can't run!")
+        
 def run(list_sub, detail_litst):
     # while True:
         # Nhận danh sách title của các thư "CHƯA ĐỌC"
@@ -67,5 +80,5 @@ def run(list_sub, detail_litst):
 
 #======================================================
 
-if __name__ == "__main__":
-    run()
+# if __name__ == "__main__":
+#     run()

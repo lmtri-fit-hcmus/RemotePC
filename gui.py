@@ -70,7 +70,8 @@ class HomePage(tk.Frame):
 
         button_refresh=tk.Button(self,text="Run",command=lambda: self.Run(list_sub = appController.sub_list, detail_list = appController.detail_list))
         button_refresh.pack()
-      
+
+       
 
         s=ttk.Style()
         s.theme_use('clam')
@@ -81,46 +82,35 @@ class HomePage(tk.Frame):
    
     def Run( self,list_sub, detail_list):
         c = 0
-        while(True):
-            d = 0
-            for i in list_sub:
-            #Xử lý các title tương ứng
-                Main.Handling(i)
-                l = len(detail_list)
-                detail = detail_list[d]
-                selected_item = self.tv.get_children()[l-c-1]
-                print(selected_item)
-                print(self.tv.item(selected_item)["values"])
-                # self.tv.delete(selected_item)
-                # self.tv.item(selected_item,text="", values=(detail[0],detail[1],detail[2],detail[3],detail[4], "Done"))
-                self.tv.item(selected_item,values=(detail[0],detail[1],detail[2],detail[3],detail[4], "Done"))
-                
-                items = []
-                lists = []
-                for child in self.tv.get_children():
-                    items.append(self.tv.item(child)["values"])
-                    lists.append(child)
-                    print(child)
-                    print(self.tv.item(child)["values"])
-                self.tv.delete(*self.tv.get_children())
-                print(items)
-                temp = 0
-                for item in items:
-                    print(item)
-                    self.tv.insert(parent = '',index= 'end', text="",values=(item[0],item[1],item[2],item[3],item[4],item[5]))
-                    temp+=1
-                    
-                c+=1
-                d+=1
-            sleep(3)
-            print("Read")
-            list_sub, detail_list =ReceiveEmail.ReceiveEmail(client_address,client_pass)
-            j = i
-            for detail in detail_list:
-                self.tv.insert(parent = '',index= 0,text="",values=(detail[0],detail[1],detail[2],detail[3],detail[4], "Unread"))
-                j+=1
+        d = 0
+        for i in list_sub:
+        #Xử lý các title tương ứng
+            Main.Handling(i)
+            l = len(detail_list)
+            detail = detail_list[d]
+            selected_item = self.tv.get_children()[l-1-c]
+            self.tv.item(selected_item,values=(detail[0],detail[1],detail[2],detail[3],detail[4], "Done"))
             
-
+            items = []
+            lists = []
+            for child in self.tv.get_children():
+                items.append(self.tv.item(child)["values"])
+                lists.append(child)
+            self.tv.delete(*self.tv.get_children())
+            temp = 0
+            for item in items:
+                self.tv.insert(parent = '',index= 'end', text="",values=(item[0],item[1],item[2],item[3],item[4],item[5]))
+                temp+=1
+            self.update()
+            c+=1
+            d+=1
+        print("Read")
+        list_sub, detail_list =ReceiveEmail.ReceiveEmail(client_address,client_pass)
+        for detail in detail_list:
+            self.tv.insert(parent = '',index= 0,text="",values=(detail[0],detail[1],detail[2],detail[3],detail[4], "Unread"))
+        self.after(1000, self.Run(list_sub, detail_list))
+        
+        
 
 class App(tk.Tk):
     def __init__(self):
@@ -138,25 +128,25 @@ class App(tk.Tk):
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0,weight=1)
         container.grid_columnconfigure(0,weight=1)
-        self.frames = HomePage(container, self)
-        self.frames.grid(row=0,column=0,sticky="nsew")
-        self.frames.tkraise()
+
+        frame=HomePage(container, self)
+        frame.grid(row=0,column=0,sticky="nsew")
+        self.frame=frame
+
 
       
 
         self.sub_list, self.detail_list = ReceiveEmail.ReceiveEmail(client_address,client_pass)
 
-        i = 1
         for detail in self.detail_list:
-            self.frames.tv.insert(parent = '',index=0,text="",values=(detail[0],detail[1],detail[2],detail[3],detail[4], "Unread"))
-            i+=1
-           
+            self.frame.tv.insert(parent = '',index=0,text="",values=(detail[0],detail[1],detail[2],detail[3],detail[4], "Unread"))
+    
         # self.run = Main.run()
         # Pack to the screen
-        self.frames.tv.pack(pady=20)
+        self.frame.tv.pack(pady=20)
+        self.frame.tkraise()
+
  
-
-
 
     def resize(self,curFrame,w,h):
         self.geometry(f"{w}x{h}")
