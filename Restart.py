@@ -1,7 +1,7 @@
 import os
 
 def Restart():      
-    os.system("shutdown /r /t 1")
+    os.system("shutdown /r /t 15")
     return ""
 
 # restart = input("Do you wish to restart your computer ? (yes / no): ")

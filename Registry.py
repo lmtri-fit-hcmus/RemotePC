@@ -134,11 +134,6 @@ def delete_key(full_path):
         return ["0", "0"]
 
 def Registry(ID, full_path, name_value, value, v_type):
-    print(ID)
-    print(full_path)
-    print(name_value)
-    print(value)
-    print(v_type)
 
     if ID == "GET VALUE":
         res = get_value(full_path + r'\\' + name_value)     

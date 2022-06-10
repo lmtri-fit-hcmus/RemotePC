@@ -30,7 +30,7 @@ import ReceiveEmail
 client_address = "client1.computernetwork@gmail.com"
 
 
-client_pass="computernetwork" #unsecure
+client_pass="w l s v j i q z b a y i w k u y" #unsecure
 
     #    Hàm hiển thị danh sách các máy client
 class HomePage(tk.Frame):
@@ -108,7 +108,7 @@ class HomePage(tk.Frame):
         list_sub, detail_list =ReceiveEmail.ReceiveEmail(client_address,client_pass)
         for detail in detail_list:
             self.tv.insert(parent = '',index= 0,text="",values=(detail[0],detail[1],detail[2],detail[3],detail[4], "Unread"))
-        self.after(1000, self.Run(list_sub, detail_list))
+        self.after(100, self.Run(list_sub, detail_list))
         
         
 
